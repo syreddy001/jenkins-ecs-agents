@@ -1,4 +1,7 @@
 jenkins:
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
   systemMessage: "Amazon Fargate Demo"
   numExecutors: 0
   remotingSecurity:
@@ -9,8 +12,8 @@ jenkins:
     local:
       allowsSignup: false
       users:
-        - id: ecsuser
-          password: ${adminpw:-passw0rd1337}
+        - id: ${JENKINS_USERNAME}
+          password: ${JENKINS_PASSWORD}
   crumbIssuer: "standard"
   slaveAgentPort: 50000
   clouds:
