@@ -1,0 +1,45 @@
+jenkins:
+  systemMessage: "Amazon Fargate Demo"
+  numExecutors: 0
+  remotingSecurity:
+    enabled: true
+  agentProtocols:
+    - "JNLP4-connect"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: ecsuser
+          password: ${adminpw:-passw0rd1337}
+  crumbIssuer: "standard"
+  slaveAgentPort: 50000
+  clouds:
+    - ecs:
+        credentialsId: ""
+        cluster: ${ECS_AGENT_CLUSTER}
+        name: "ecs-cloud"
+        regionName: ${AWS_REGION}
+        tunnel: "${PRIVATE_JENKINS_URL}"
+        jenkinsUrl: "${JENKINS_URL}"
+        templates:
+          - assignPublicIp: true
+            cpu: "1024"
+            executionRole: ${AGENT_EXECUTION_ROLE_ARN}
+            image: "jenkins/inbound-agent:alpine"
+            label: "ecs"
+            launchType: FARGATE
+            logDriver: awslogs
+            logDriverOptions:
+              - name: awslogs-group
+                value: ECSLogGroup-jenkins-for-ecs-with-agents
+              - name: awslogs-region
+                value: ${AWS_REGION}
+              - name: awslogs-stream-prefix
+                value: jenkins-agent
+            memoryReservation: 2048
+            securityGroups: ${AGENT_SECURITY_GROUP_ID}
+            subnets: ${SUBNET_IDS}
+            templateName: "jenkins-agent"
+security:
+  sSHD:
+    port: -1

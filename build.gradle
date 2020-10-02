@@ -1,0 +1,32 @@
+plugins {
+    id 'com.palantir.docker' version '0.25.0'
+    id 'com.palantir.docker-run' version '0.25.0'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+docker {
+    name "${project.name}:${project.version}"
+    files "plugins.txt", "seedJob.xml", 'jenkins.yaml'
+    tag 'latest', 'tkgregory/jenkins-ecs-agents:latest'
+}
+
+def environment = [
+        'AGENT_EXECUTION_ROLE_ARN': 'arn:aws:iam::299404798587:role/jenkins-execution-role',
+        'AGENT_SECURITY_GROUP_ID': 'sg-08e815b2c63ac40d7',
+        'AWS_REGION': 'eu-west-1',
+        'ECS_AGENT_CLUSTER': 'default-cluster',
+        'JENKINS_URL': 'http://localhost:8080',
+        'PRIVATE_JENKINS_URL': 'jenkins.jenkins-for-ecs-with-agents:50000',
+        'SUBNET_IDS': 'subnet-0dfc81b0b79e12391,subnet-063df5b2535ffca70'
+]
+
+dockerRun {
+    name "${project.name}"
+    image "${project.name}:${project.version}"
+    ports '8080:8080'
+    clean true
+    daemonize false
+    env environment
+}
