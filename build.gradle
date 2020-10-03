@@ -9,6 +9,7 @@ version '1.0-SNAPSHOT'
 docker {
     name "${project.name}:${project.version}"
     files "plugins.txt", "slaveTestJob.xml", 'jenkins.yaml', 'disable-script-security.groovy', 'initialConfig.groovy'
+    copySpec.from("jenkins-resources").into("jenkins-resources")
     tag 'latest', 'tkgregory/jenkins-ecs-agents:latest'
 }
 
@@ -18,7 +19,7 @@ def environment = [
         'AWS_REGION': 'eu-west-1',
         'ECS_AGENT_CLUSTER': 'default-cluster',
         'JENKINS_URL': 'http://localhost:8080',
-        'JENKINS_USERNAME': 'dev',
+        'JENKINS_USERNAME': 'developer',
         'JENKINS_PASSWORD': 'dev123',
         'PRIVATE_JENKINS_HOST_AND_PORT': 'jenkins.jenkins-for-ecs-with-agents:50000',
         'SUBNET_IDS': 'subnet-0dfc81b0b79e12391,subnet-063df5b2535ffca70'
