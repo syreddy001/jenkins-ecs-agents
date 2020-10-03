@@ -18,9 +18,9 @@ def environment = [
         'AWS_REGION': 'eu-west-1',
         'ECS_AGENT_CLUSTER': 'default-cluster',
         'JENKINS_URL': 'http://localhost:8080',
-        'JENKINS_USERNAME': 'developer',
+        'JENKINS_USERNAME': 'dev',
         'JENKINS_PASSWORD': 'dev123',
-        'PRIVATE_JENKINS_URL': 'jenkins.jenkins-for-ecs-with-agents:50000',
+        'PRIVATE_JENKINS_HOST_AND_PORT': 'jenkins.jenkins-for-ecs-with-agents:50000',
         'SUBNET_IDS': 'subnet-0dfc81b0b79e12391,subnet-063df5b2535ffca70'
 ]
 

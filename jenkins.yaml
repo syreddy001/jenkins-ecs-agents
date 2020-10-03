@@ -1,34 +1,34 @@
 jenkins:
+  numExecutors: 1
+  slaveAgentPort: 50000
+  systemMessage: Jenkins with AWS ECS demo
+  agentProtocols:
+    - JNLP4-connect
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
-  systemMessage: "Amazon Fargate Demo"
-  numExecutors: 1
   remotingSecurity:
     enabled: true
-  agentProtocols:
-    - "JNLP4-connect"
   securityRealm:
     local:
       allowsSignup: false
       users:
         - id: ${JENKINS_USERNAME}
           password: ${JENKINS_PASSWORD}
-  crumbIssuer: "standard"
-  slaveAgentPort: 50000
   clouds:
     - ecs:
-        credentialsId: ""
+        credentialsId: ''
         cluster: ${ECS_AGENT_CLUSTER}
-        name: "ecs-cloud"
+        name: ecs-cloud
         regionName: ${AWS_REGION}
-        tunnel: "${PRIVATE_JENKINS_URL}"
+        jenkinsUrl: ${JENKINS_URL}
+        tunnel: ${PRIVATE_JENKINS_HOST_AND_PORT}
         templates:
           - assignPublicIp: true
-            cpu: "1024"
+            cpu: 1024
             executionRole: ${AGENT_EXECUTION_ROLE_ARN}
-            image: "jenkins/inbound-agent:alpine"
-            label: "ecs"
+            image: jenkins/inbound-agent:alpine
+            label: ecs
             launchType: FARGATE
             logDriver: awslogs
             logDriverOptions:
@@ -41,7 +41,4 @@ jenkins:
             memoryReservation: 2048
             securityGroups: ${AGENT_SECURITY_GROUP_ID}
             subnets: ${SUBNET_IDS}
-            templateName: "jenkins-agent"
-security:
-  sSHD:
-    port: -1
+            templateName: jenkins-agent
