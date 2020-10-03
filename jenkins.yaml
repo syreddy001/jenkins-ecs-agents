@@ -3,7 +3,7 @@ jenkins:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false
   systemMessage: "Amazon Fargate Demo"
-  numExecutors: 0
+  numExecutors: 1
   remotingSecurity:
     enabled: true
   agentProtocols:
