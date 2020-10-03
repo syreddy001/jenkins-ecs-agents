@@ -1,3 +1,3 @@
 amazon-ecs:1.37
-configuration-as-code:1.39
+configuration-as-code:1.43
 workflow-aggregator:2.6
