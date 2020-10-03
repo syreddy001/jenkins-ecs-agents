@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><flow-definition>
+    <actions/>
+    <description/>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <triggers/>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition">
+        <script>
+pipeline {
+    agent {
+        label 'ecs'
+    }
+
+    stages {
+        stage('Awesomeness') {
+            steps {
+                echo 'Hello from Jenkins slave!'
+            }
+        }
+    }
+}
+        </script>
+        <sandbox>true</sandbox>
+    </definition>
+</flow-definition>

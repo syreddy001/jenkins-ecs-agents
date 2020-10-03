@@ -8,7 +8,7 @@ version '1.0-SNAPSHOT'
 
 docker {
     name "${project.name}:${project.version}"
-    files "plugins.txt", "seedJob.xml", 'jenkins.yaml', 'disable-script-security.groovy', 'initialConfig.groovy'
+    files "plugins.txt", "slaveTestJob.xml", 'jenkins.yaml', 'disable-script-security.groovy', 'initialConfig.groovy'
     tag 'latest', 'tkgregory/jenkins-ecs-agents:latest'
 }
 
