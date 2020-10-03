@@ -23,7 +23,6 @@ jenkins:
         name: "ecs-cloud"
         regionName: ${AWS_REGION}
         tunnel: "${PRIVATE_JENKINS_URL}"
-        jenkinsUrl: "${JENKINS_URL}"
         templates:
           - assignPublicIp: true
             cpu: "1024"

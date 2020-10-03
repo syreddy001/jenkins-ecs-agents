@@ -8,5 +8,6 @@ COPY seedJob.xml /usr/share/jenkins/ref/jobs/seed-job/config.xml
 COPY jenkins.yaml /var/jenkins_home/jenkins.yaml
 
 COPY disable-script-security.groovy /var/jenkins_home/init.groovy.d/disable-script-security.groovy
+COPY initialConfig.groovy /var/jenkins_home/init.groovy.d/initialConfigs.groovy
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
