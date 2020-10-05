@@ -32,7 +32,7 @@ jenkins:
             logDriver: awslogs
             logDriverOptions:
               - name: awslogs-group
-                value: ECSLogGroup-jenkins-for-ecs-with-agents
+                value: ${LOG_GROUP_NAME}
               - name: awslogs-region
                 value: ${AWS_REGION}
               - name: awslogs-stream-prefix

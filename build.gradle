@@ -1,4 +1,5 @@
 plugins {
+    id 'base'
     id 'com.palantir.docker' version '0.25.0'
     id 'com.palantir.docker-run' version '0.25.0'
 }
@@ -21,13 +22,14 @@ def environment = [
         'JENKINS_URL': 'http://localhost:8080',
         'JENKINS_USERNAME': 'developer',
         'JENKINS_PASSWORD': 'dev123',
-        'PRIVATE_JENKINS_HOST_AND_PORT': 'jenkins.jenkins-for-ecs-with-agents:50000',
+        'LOG_GROUP_NAME': 'ECSLogGroup-jenkins-for-ecs-with-agents-autoconfigured',
+        'PRIVATE_JENKINS_HOST_AND_PORT': 'jenkins.jenkins-for-ecs-with-agents-autoconfigured:50000',
         'SUBNET_IDS': 'subnet-0dfc81b0b79e12391,subnet-063df5b2535ffca70'
 ]
 
 dockerRun {
     name "${project.name}"
-    image "tkgregory/jenkins-ecs-agents:latest"
+    image "${project.name}:${project.version}"
     ports '8080:8080'
     clean true
     daemonize false
